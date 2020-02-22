@@ -1,0 +1,95 @@
+1.
+SQL> select s.Staff_name,d.dept_code,d.dept_name,s.staff_sal from staff_master s , department_master d where s.dept_code=d.dept_code and s.staff_sal>20000;
+
+STAFF_NAME                                          DEPT_CODE DEPT_NAME                                           STAFF_SAL
+-------------------------------------------------- ---------- -------------------------------------------------- ----------
+harish                                                     51 software                                                33333
+sandeep                                                    52 areospace                                               99000
+gayatri                                                    54 chef                                                    25000
+
+2.
+
+SQL> select s.staff_code as" Staff#", s.staff_name as " Staff", d.dept_name,s.mgr_code as" Mgr#" ,m. mgr_name as "manager" from staff_master s, department_master d,manager m where s.dept_code=d.dept_code and s.mgr_code=m.mgr_code;
+
+    Staff#  Staff                                             DEPT_NAME                                                Mgr# manager
+---------- -------------------------------------------------- -------------------------------------------------- ---------- ----------
+         1 kishore                                            software                                                  901 vasanth
+         2 kiran_                                             areospace                                                 902 ritesh
+         3 venkat_                                            designer                                                  903 hari
+         5 sandeep                                            areospace                                                 902 ritesh
+         6 harish                                             software                                                  901 vasanth
+
+
+3.
+
+SQL> select s.student_code, s.student_name,b.book_code,b.book_name from student_master s, book_master b, book_transactions t where s.student_code=t.student_code and b.book_code=t.book_code and t.book_expected_return_date=to_char(sysdate,'dd-mon-yy');
+
+STUDENT_CODE STUDENT_NAME                                        BOOK_CODE BOOK_NAME
+------------ -------------------------------------------------- ---------- --------------------------------------------------
+         401 karthik                                                   101 half girlfriend
+
+4. (WRONG)
+
+SQL> select s.staff_code, s.staff_name, d.dept_name, de.design_name, b.book_code, b.book_name,t.book_issue_date from staff_master s, department_master d, designation_master de, book_master b, book_transactions t where s.dept_code=d.dept_code and s.design_code=de.design_code and b.book_code=t.book_code and months_between(sysdate,book_issue_date)<1;
+
+STAFF_CODE STAFF_NAME                                         DEPT_NAME                                          DESIGN_NAME
+                     BOOK_CODE
+---------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ----------
+BOOK_NAME                                          BOOK_ISSU
+-------------------------------------------------- ---------
+         1 kishore                                            software                                           teacher
+                           101
+half girlfriend                                    12-JAN-20
+
+         2 kiran_                                             areospace                                          engineer
+                           101
+half girlfriend                                    12-JAN-20
+
+
+
+
+
+6.
+
+
+SQL> select staff_code, staff_name,staff_sal from staff_master where staff_sal< (select avg(staff_sal) from staff_master);
+
+STAFF_CODE STAFF_NAME                                          STAFF_SAL
+---------- -------------------------------------------------- ----------
+         1 kishore                                                  5000
+         2 kiran_                                                  20000
+         3 venkat_                                                 18000
+         6 harish                                                  33333
+         4 gayatri                                                 25000
+
+
+7.
+
+
+
+SQL> select book_pub_author,book_name from book_master where book_pub_author=(select book_pub_author from book_master group by book_pub_author having count(book_code)>1);
+
+BOOK_PUB_AUTHOR
+--------------------------------------------------
+BOOK_NAME
+--------------------------------------------------
+chetan bhagat
+half girlfriend
+
+chetan bhagat
+3 mistakes of my life
+
+
+8.
+
+SQL> select s.staff_code, s.staff_name, d.dept_name from staff_master s, department_master d where s.dept_code=d.dept_code and s.staff_code=(select staff_code from book_transactions group by staff_code having count(staff_code)>1);
+
+STAFF_CODE STAFF_NAME
+---------- --------------------------------------------------
+DEPT_NAME
+--------------------------------------------------
+         1 kishore
+software
+
+
+

@@ -1,0 +1,31 @@
+1.  select Staff_Name as "name of staff",Design_code as"designation code" from Staff_Master where Staff_sal between 12000 and 25000 and HireDate<'01-jan-2003'
+/
+
+
+
+
+
+2.   select Staff_code,Staff_Name,Dept_code from Staff_Master where (sysdate-HireDate)/365>18
+/
+
+
+
+
+3.   Select * from Staff_Master where Mgr_code is null
+/
+
+
+4..SQL> select * from Book_Master where Book_pub_year between 2001 and 2004 and Book_Name like '%&%';
+
+ BOOK_CODE BOOK_NAME                                          BOOK_PUB_YEAR
+---------- -------------------------------------------------- -------------
+BOOK_PUB_AUTHOR
+--------------------------------------------------
+       103 once upon a time&                                           2002
+kiran
+
+
+
+
+ 5.   select Staff_Name from Staff_Master where Staff_Name like '%\_%' escape '\'
+/
